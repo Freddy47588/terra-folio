@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#f5efe2"/>
+      <stop offset="100%" stop-color="#e4d8c0"/>
+    </linearGradient>
+    <linearGradient id="seaGrad" x1="16" y1="70" x2="104" y2="104" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6fa6c2" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#245775" stop-opacity="0.55"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Outer Archival Frame -->
+  <rect x="4" y="4" width="112" height="112" rx="22" fill="url(#bgGrad)" stroke="#2c261e" stroke-width="3.5"/>
+  <rect x="11" y="11" width="98" height="98" rx="16" stroke="#2c261e" stroke-width="1.2" stroke-dasharray="6 4" opacity="0.65"/>
+
+  <!-- Bathymetric Base Tint -->
+  <path d="M14 78C30 72 46 84 64 78C80 73 94 64 106 69V94C106 100.6 100.6 106 94 106H26C19.4 106 14 100.6 14 94V78Z" fill="url(#seaGrad)"/>
+
+  <!-- Topographic Isolines -->
+  <path d="M16 84C29 64 41 34 62 31C83 28 91 52 104 72" stroke="#5c4935" stroke-width="2" stroke-linecap="round" opacity="0.38"/>
+  <path d="M20 89C33 69 44 41 62 38C80 35 88 57 100 77" stroke="#483622" stroke-width="2.4" stroke-linecap="round" opacity="0.62"/>
+  <path d="M26 93C38 74 47 49 62 46C77 43 84 62 94 81" stroke="#2c261e" stroke-width="2.8" stroke-linecap="round"/>
+
+  <!-- Inner Index Contour Loop -->
+  <ellipse cx="62" cy="58" rx="16" ry="9.5" fill="#ead8a8" fill-opacity="0.6" stroke="#2c261e" stroke-width="2.4"/>
+  <ellipse cx="62" cy="57" rx="8.5" ry="4.8" stroke="#d94b27" stroke-width="2"/>
+
+  <!-- Geodetic Summit Benchmark Triangle -->
+  <polygon points="62,48 68,59 56,59" fill="#d94b27"/>
+  <circle cx="62" cy="55.5" r="1.4" fill="#fbf8f1"/>
+
+  <!-- Surveyor Transect A -> B Line -->
+  <line x1="22" y1="74" x2="98" y2="42" stroke="#d94b27" stroke-width="2" stroke-dasharray="4 3"/>
+  <circle cx="24" cy="73" r="4" fill="#d94b27" stroke="#fbf8f1" stroke-width="1.5"/>
+  <circle cx="96" cy="43" r="4" fill="#d94b27" stroke="#fbf8f1" stroke-width="1.5"/>
+
+  <!-- North Compass Hairline -->
+  <path d="M60 16L62 11L64 16H60Z" fill="#d94b27"/>
+</svg>

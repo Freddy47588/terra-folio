@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" data-edition="imhof">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TERRA // FOLIO — Interactive Topographic &amp; Bathymetric Cartography Atelier</title>
+  <meta name="description" content="An interactive topographic and bathymetric cartography studio with live Marching Squares isolines, Eduard Imhof hillshading, 3D axonometric terrain blocks, D8 hydrology, and geological cross-section profiling." />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="paper-grain" aria-hidden="true"></div>
+
+  <!-- Top Archival Masthead -->
+  <header class="masthead">
+    <div class="brand-block">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 36 36" fill="none">
+          <rect x="1.5" y="1.5" width="33" height="33" rx="6" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M5 26C10 18 14 11 20 10C26 9 28 16 31 22" stroke="currentColor" stroke-width="1.4" opacity="0.5"/>
+          <path d="M7 29C12 21 15 14 20 13C25 12 27 19 30 25" stroke="currentColor" stroke-width="1.6"/>
+          <polygon points="20,15 23.5,21 16.5,21" fill="var(--accent)"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-eyebrow">GEODETIC FOLIO NO. 08 // 1:50,000 SCALE</div>
+        <h1 class="brand-title">TERRA <span>//</span> FOLIO</h1>
+      </div>
+    </div>
+
+    <!-- Expedition Presets -->
+    <nav class="preset-bar" aria-label="Archival Expeditions">
+      <button class="preset-btn active" data-preset="fjord" type="button">
+        <span class="preset-code">01</span>
+        <span class="preset-name">Svalbard Fjord</span>
+      </button>
+      <button class="preset-btn" data-preset="caldera" type="button">
+        <span class="preset-code">02</span>
+        <span class="preset-name">Santorini Caldera</span>
+      </button>
+      <button class="preset-btn" data-preset="massif" type="button">
+        <span class="preset-code">03</span>
+        <span class="preset-name">Annapurna Massif</span>
+      </button>
+      <button class="preset-btn" data-preset="atoll" type="button">
+        <span class="preset-code">04</span>
+        <span class="preset-name">Pelagic Atoll</span>
+      </button>
+      <button class="preset-btn" data-preset="archipelago" type="button">
+        <span class="preset-code">05</span>
+        <span class="preset-name">Kuril Archipelago</span>
+      </button>
+    </nav>
+
+    <!-- Print Editions & Utility Actions -->
+    <div class="masthead-actions">
+      <div class="edition-switcher" role="group" aria-label="Cartographic Print Edition">
+        <button class="edition-btn active" data-edition="imhof" type="button" title="Eduard Imhof 1965 Swiss Hypsometric Atlas">IMHOF 65</button>
+        <button class="edition-btn" data-edition="admiralty" type="button" title="Admiralty 1888 Copperplate Nautical Chart">ADMIRALTY</button>
+        <button class="edition-btn" data-edition="sonar" type="button" title="Abyssal Bathyscaphe Sonar Telemetry">SONAR</button>
+        <button class="edition-btn" data-edition="mono" type="button" title="Architectural Monochrome Geodetic Plate">MONO</button>
+      </div>
+
+      <button id="audio-toggle" class="action-btn" type="button" aria-pressed="false" title="Toggle procedural field &amp; instrument acoustics">
+        <span class="led-dot"></span>
+        <span id="audio-label">AUDIO OFF</span>
+      </button>
+
+      <button id="export-btn" class="action-btn action-btn-primary" type="button" title="Download high-resolution archival map plate PNG">
+        <span>⬇ EXPORT PLATE</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Cartographic Workbench -->
+  <main class="workbench">
+    <!-- Left Column: Surveyor & Terraforming Instrument Rack -->
+    <aside class="instrument-rack" aria-label="Surveyor Instruments">
+      <!-- Section 1: Field Tools -->
+      <section class="rack-section">
+        <div class="section-header">
+          <span class="section-title">01 // FIELD &amp; TERRAFORM TOOLS</span>
+          <span class="section-hint">KEYS 1–6</span>
+        </div>
+
+        <div class="tool-grid" role="radiogroup" aria-label="Active Canvas Tool">
+          <button class="tool-btn active" data-tool="raise" type="button">
+            <span class="tool-key">1</span>
+            <span class="tool-icon">⛰️</span>
+            <span class="tool-label">Uplift Ridge</span>
+          </button>
+          <button class="tool-btn" data-tool="lower" type="button">
+            <span class="tool-key">2</span>
+            <span class="tool-icon">🌊</span>
+            <span class="tool-label">Carve Trench</span>
+          </button>
+          <button class="tool-btn" data-tool="smooth" type="button">
+            <span class="tool-key">3</span>
+            <span class="tool-icon">〰️</span>
+            <span class="tool-label">Glacial Smooth</span>
+          </button>
+          <button class="tool-btn" data-tool="rain" type="button">
+            <span class="tool-key">4</span>
+            <span class="tool-icon">🌧️</span>
+            <span class="tool-label">Seed Rainstorm</span>
+          </button>
+          <button class="tool-btn" data-tool="transect" type="button">
+            <span class="tool-key">5</span>
+            <span class="tool-icon">📐</span>
+            <span class="tool-label">Survey A→B</span>
+          </button>
+          <button class="tool-btn" data-tool="waypoint" type="button">
+            <span class="tool-key">6</span>
+            <span class="tool-icon">📍</span>
+            <span class="tool-label">Stamp Marker</span>
+          </button>
+        </div>
+
+        <!-- Contextual Waypoint Stamp Bar (shown when waypoint tool active or always accessible) -->
+        <div id="waypoint-config" class="waypoint-config">
+          <div class="control-row">
+            <select id="waypoint-type" aria-label="Waypoint Category">
+              <option value="summit">▲ Summit Benchmark</option>
+              <option value="anchorage">⚓ Nautical Anchorage</option>
+              <option value="thermal">♨ Hydrothermal Vent</option>
+              <option value="observatory">✦ Geodetic Station</option>
+              <option value="camp">⛺ Expedition Camp</option>
+            </select>
+            <input id="waypoint-name" type="text" placeholder="Custom label..." maxlength="22" />
+          </div>
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-label-row">
+            <label for="brush-size">Brush Radius</label>
+            <output id="brush-size-val">1.8 km</output>
+          </div>
+          <input id="brush-size" type="range" min="0.035" max="0.14" step="0.005" value="0.075" />
+        </div>
+
+        <div class="quick-actions">
+          <button id="storm-btn" class="mini-btn" type="button" title="Release monsoon precipitation across all mountain ridges">🌧️ Monsoon</button>
+          <button id="snap-transect-btn" class="mini-btn" type="button" title="Snap transect A→B through highest peak and deepest abyssal trench">📐 Peak→Abyss</button>
+          <button id="reset-terrain-btn" class="mini-btn" type="button" title="Reset sculptural edits back to pristine survey">↺ Reset Relief</button>
+        </div>
+      </section>
+
+      <!-- Section 2: Geodetic & Bathymetric Parameters -->
+      <section class="rack-section">
+        <div class="section-header">
+          <span class="section-title">02 // GEODETIC DATUM &amp; SEED</span>
+        </div>
+
+        <div class="seed-row">
+          <label for="seed-input" class="sr-only">Survey Seed</label>
+          <input id="seed-input" class="seed-input" type="text" value="SVALBARD-78N" maxlength="20" spellcheck="false" />
+          <button id="random-seed-btn" class="mini-btn" type="button" title="Generate new deterministic terrain seed">🎲 New Seed</button>
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-label-row">
+            <label for="sea-level">Sea Level Datum</label>
+            <output id="sea-level-val">0 m</output>
+          </div>
+          <input id="sea-level" type="range" min="-900" max="1200" step="25" value="0" />
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-label-row">
+            <label for="exaggeration">Vertical Exaggeration</label>
+            <output id="exaggeration-val">1.15×</output>
+          </div>
+          <input id="exaggeration" type="range" min="0.6" max="2.0" step="0.05" value="1.15" />
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-label-row">
+            <label>Contour Interval</label>
+            <span id="contour-interval-val" class="mono-val">100 m</span>
+          </div>
+          <div class="pill-group" role="group" aria-label="Contour Interval">
+            <button class="pill-btn" data-interval="50" type="button">50m</button>
+            <button class="pill-btn active" data-interval="100" type="button">100m</button>
+            <button class="pill-btn" data-interval="150" type="button">150m</button>
+            <button class="pill-btn" data-interval="200" type="button">200m</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: Eduard Imhof Solar Relief Compass & Telemetry Summary -->
+      <section class="rack-section">
+        <div class="section-header">
+          <span class="section-title">03 // IMHOF SOLAR RELIEF DIAL</span>
+          <span id="sun-readout" class="section-hint">315° NW · 34°</span>
+        </div>
+
+        <div class="sun-instrument-row">
+          <div class="sun-dial-wrap">
+            <canvas id="sun-dial" width="112" height="112" aria-label="Interactive Solar Azimuth and Altitude Dial"></canvas>
+          </div>
+          <div class="survey-stats-grid">
+            <div class="stat-box">
+              <span class="stat-label">HIGHEST SUMMIT</span>
+              <strong id="stat-max-elev" class="stat-value">△ +2,840 m</strong>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">DEEPEST ABYSS</span>
+              <strong id="stat-min-elev" class="stat-value">▽ -1,420 m</strong>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">LAND / PELAGIC</span>
+              <strong id="stat-land-ratio" class="stat-value">58% / 42%</strong>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">DRAINAGE BASINS</span>
+              <strong id="stat-rivers" class="stat-value">14 Streams</strong>
+            </div>
+          </div>
+        </div>
+
+        <p id="expedition-desc" class="expedition-desc">
+          Drowned glacial troughs carved between steep Permian ridges, alpine cirques, and submerged moraine sills.
+        </p>
+      </section>
+    </aside>
+
+    <!-- Right / Center Primary Stage -->
+    <section class="primary-stage" aria-label="Cartographic Viewport and Cross-Section">
+      <!-- Top Bar: Projection View Modes & Live Cursor Telemetry -->
+      <div class="viewport-toolbar">
+        <div class="viewmode-tabs" role="tablist" aria-label="Survey Projection Mode">
+          <button class="viewmode-tab active" data-view="topo" role="tab" aria-selected="true" type="button">
+            <span>🗺️ 2D TOPOGRAPHIC PLAN</span>
+          </button>
+          <button class="viewmode-tab" data-view="block3d" role="tab" aria-selected="false" type="button">
+            <span>🧊 3D AXONOMETRIC SLAB</span>
+          </button>
+          <button class="viewmode-tab" data-view="hydro" role="tab" aria-selected="false" type="button">
+            <span>💧 HYDROLOGY &amp; FLUX</span>
+          </button>
+          <button class="viewmode-tab" data-view="biome" role="tab" aria-selected="false" type="button">
+            <span>🌿 BIOME &amp; SLOPE</span>
+          </button>
+        </div>
+
+        <!-- Live Cursor Telemetry Strip -->
+        <div class="telemetry-strip" aria-live="polite">
+          <div class="tele-item">
+            <span class="tele-label">COORDS</span>
+            <span id="tele-coords" class="tele-val">78°13′12″N · 15°39′00″E</span>
+          </div>
+          <div class="tele-item">
+            <span class="tele-label">ELEVATION</span>
+            <span id="tele-elev" class="tele-val">+1,240 m</span>
+          </div>
+          <div class="tele-item">
+            <span class="tele-label">SLOPE</span>
+            <span id="tele-slope" class="tele-val">18° (32%)</span>
+          </div>
+          <div class="tele-item">
+            <span class="tele-label">ZONE</span>
+            <span id="tele-biome" class="tele-val">Subalpine Boreal Taiga</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Interactive Map Canvas Container -->
+      <div class="map-canvas-wrap">
+        <canvas id="map-canvas"></canvas>
+
+        <!-- Floating 3D Orbit Controls (visible when 3D Axonometric Slab mode is active) -->
+        <div id="controls-3d" class="controls-3d" hidden>
+          <button id="orbit-left-btn" class="mini-btn" type="button">⟲ Orbit L</button>
+          <button id="orbit-right-btn" class="mini-btn" type="button">⟳ Orbit R</button>
+          <button id="orbit-reset-btn" class="mini-btn" type="button">⌖ Reset 3D</button>
+        </div>
+
+        <!-- Floating Hypsometric & Bathymetric Legend Pill -->
+        <div class="map-legend" aria-label="Elevation Scale">
+          <span class="legend-tag">-1800m</span>
+          <div class="legend-bar"></div>
+          <span class="legend-tag">0m</span>
+          <div class="legend-bar legend-bar-land"></div>
+          <span class="legend-tag">+3500m</span>
+        </div>
+      </div>
+
+      <!-- Bottom Panel: Live Geological Cross-Section & Transect Profiler (A -> B) -->
+      <div class="transect-panel">
+        <div class="transect-header">
+          <div class="transect-title-group">
+            <span class="transect-badge">TRANSECT A → B</span>
+            <h2 class="transect-title">GEOLOGICAL CROSS-SECTION &amp; BATHYMETRIC PROFILE</h2>
+          </div>
+          <div class="transect-metrics">
+            <span>SPAN: <strong id="tr-dist">18.2 km</strong></span>
+            <span>PEAK: <strong id="tr-max">+2,410 m</strong></span>
+            <span>ABYSS: <strong id="tr-min">-920 m</strong></span>
+            <span>RELIEF: <strong id="tr-relief">3,330 m</strong></span>
+            <span>MAX GRADE: <strong id="tr-grade">54%</strong></span>
+          </div>
+        </div>
+        <div class="transect-canvas-wrap">
+          <canvas id="transect-canvas"></canvas>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
