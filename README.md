@@ -6,7 +6,7 @@
 
 **Sculpting relief, isolines, and watersheds in real time.** An interactive topographic and bathymetric cartography workbench featuring live Marching Squares contour extraction, Eduard Imhof solar relief shading, a rotatable 3D axonometric geological slab, D8 hydrological river routing, synchronized geological cross-section profiling, and procedural Web Audio field acoustics — engineered with zero dependencies.
 
-[![Live Demo](https://img.shields.io/badge/▶%20LIVE%20DEMO-GitHub%20Pages-d94b27?style=for-the-badge)](https://freddy47588.github.io/terra-folio/)
+[![Live Demo](https://img.shields.io/badge/▶%20LIVE%20DEMO-Cloudflare%20Pages-d94b27?style=for-the-badge&logo=cloudflarepages&logoColor=white)](https://terra-folio.pages.dev)
 [![HTML5](https://img.shields.io/badge/HTML5-Canvas_2D-245775?style=for-the-badge&logo=html5&logoColor=white)](./index.html)
 [![CSS3](https://img.shields.io/badge/CSS3-4_Print_Editions-2e8b57?style=for-the-badge&logo=css3&logoColor=white)](./css/styles.css)
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6_Modules-e09f3e?style=for-the-badge&logo=javascript&logoColor=black)](./js/main.js)
